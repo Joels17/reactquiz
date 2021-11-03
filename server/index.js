@@ -1,12 +1,17 @@
 const fetch = require('node-fetch');
 const express = require("express");
 const csv = require('csv-parser')
+const path = require('path');
 const fs = require('fs')
 
 const PORT = process.env.PORT || 3001;
 
 const app = express();
-app.use(express.static(path.resolve(__dirname, '../client/build')));
+
+// const buildPath = path.join(__dirname, '..', 'build');
+// app.use(express.static(buildPath));
+
+
 // This is the nodejs function here
 async function sumValues(){
   const results = [];
@@ -51,9 +56,6 @@ app.get("/api/temps", async (req, res) => {
   res.json(retValue);
 });
 
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
-});
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);

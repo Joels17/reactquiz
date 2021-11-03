@@ -9,7 +9,8 @@ export default class WeatherSearch extends React.Component {
           current: '',
           max: '',
           min: ''
-        }
+        },
+        error: ''
       };
   
       this.handleChange = this.handleChange.bind(this);
@@ -30,14 +31,20 @@ export default class WeatherSearch extends React.Component {
         }
       });
       const myJson = await response.json();
-      console.log(myJson.main.temp);
-      this.setState({
-        temp: {                   
-          current: myJson.main.temp,
-          max: myJson.main.temp_max,
-          min: myJson.main.temp_min    
-        }
-    })
+      if(myJson.cod === '404'){
+        this.setState({error: myJson.message});
+      }else{
+        this.setState({error: ''});
+        console.log(myJson.main.temp);
+        this.setState({
+          temp: {                   
+            current: myJson.main.temp,
+            max: myJson.main.temp_max,
+            min: myJson.main.temp_min    
+          }
+        });
+      }
+
     }
   
     render() {
@@ -50,6 +57,7 @@ export default class WeatherSearch extends React.Component {
             </label>
             <input type="submit" value="Submit" />
           </form>
+          <p>{this.state.error ? this.state.error : ''}</p>
           <p>{this.state.temp.current ? `The temperature is ${this.state.temp.current} degrees celcius` : ''}</p>
           <p>{this.state.temp.max ? `High: ${this.state.temp.max} | Low: ${this.state.temp.min}` : ''}</p>
         </div>
