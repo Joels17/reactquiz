@@ -58,7 +58,7 @@ app.get("/api/temps", async (req, res) => {
 
 app.route('/*')
   .get(function(req, res) {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '../client/public/index.html');
 });
 
 app.listen(PORT, () => {
