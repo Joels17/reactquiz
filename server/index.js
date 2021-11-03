@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 
-express.static(path_join(__dirname, '../client/build'));
+express.static(path.join(__dirname, '/../client/build'));
 
 
 // This is the nodejs function here
@@ -56,7 +56,7 @@ app.get("/api/temps", async (req, res) => {
 });
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '../client/build/index.html'));
+  res.sendFile(path.join(__dirname + '/../client/public/index.html'));
 });
 
 app.listen(PORT, () => {
