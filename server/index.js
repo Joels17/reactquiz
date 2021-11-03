@@ -6,7 +6,7 @@ const fs = require('fs')
 const PORT = process.env.PORT || 3001;
 
 const app = express();
-
+app.use(express.static(path.resolve(__dirname, '../client/build')));
 // This is the nodejs function here
 async function sumValues(){
   const results = [];
@@ -49,6 +49,10 @@ app.get("/api/temps", async (req, res) => {
   const retValue = await getTemps(req.query.location)
   console.log(retValue);
   res.json(retValue);
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
 });
 
 app.listen(PORT, () => {
