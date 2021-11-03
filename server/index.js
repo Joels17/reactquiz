@@ -56,6 +56,11 @@ app.get("/api/temps", async (req, res) => {
   res.json(retValue);
 });
 
+app.route('/*')
+  .get(function(req, res) {
+  res.sendFile(__dirname + '/index.html');
+});
+
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
